@@ -1,3 +1,101 @@
 /*
   Custom styles for Trackster App
 */
+
+:root {
+    --logo-pink: rgb(255,0,171);
+    --search-pink-hover: rgb(255,102,204);
+    --table-header-purple: rgb(104,0,255);
+    --header-purple: rgb(35,2,63);
+    --main-text-color: rgb(74,74,74);
+    --line-grey: rgb(204,204,204);
+    --placeholder-text: rgb(191,191,191);
+    --row-bg-grey-hover: rgb(239,237,242);
+}
+
+html {
+    font-size: 16px;
+
+}
+
+body {
+    line-height: 2.5;
+    font-family: "Work Sans", sans-serif;
+    color: var(--main-text-color);
+}
+
+h1 {
+    margin: 0;
+    font-family: "Righteous", cursive;
+    font-size: 2.5rem;
+    color: var(--logo-pink);
+}
+
+.header {
+    padding: 2.75rem 0;
+    background-color: var(--header-purple);
+}
+
+.header input {
+    border-radius: 19px;
+    margin-right: .625rem;
+}
+
+.header .fa-search {
+    padding: .5rem;
+    border-radius: 19px;
+    text-align: center;
+    background-color: var(--logo-pink);
+    color: white;
+    cursor: pointer;
+    transition: color 500ms;
+}
+
+.fa-search:hover {
+    background-color: var(--search-pink-hover);
+}
+
+.attributes {
+    background-color: var(--table-header-purple);
+    color: white;
+    font-weight: 500;
+}
+
+.track {
+    display: flex;
+    padding: .6rem;
+    border-bottom: 1px solid var(--line-grey);
+    line-height: 1;
+    align-items: center;
+}
+
+.startmessage {
+    display: flex;
+    padding: 1.1rem;
+    border-bottom: 1px solid var(--line-grey);
+    line-height: 3;
+    align-items: center;
+}
+
+.play-button i {
+    color: var(--logo-pink);
+}
+
+.listeners {
+    text-align: right;
+}
+
+button {
+    background-color: var(--logo-pink);
+    border: 1x solid var(--row-bg-grey-hover);
+    border-radius: 19px;
+    color: white;
+    margin-left: 20px;
+    padding: 2px 20px;
+    transition: color 500ms;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: var(--search-pink-hover);
+}

@@ -1,0 +1,6 @@
+API account created
+Here are the details of your new API account.
+Application name	Trackster
+API key	6a1715aeff4d212449508fa7dbaf63bc
+Shared secret	5443b5db502b9936e50087f51fe7a1f7
+Registered to	Connie182
