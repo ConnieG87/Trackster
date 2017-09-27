@@ -61,6 +61,10 @@ h1 {
     font-weight: 500;
 }
 
+.sortable {
+    font-weight: 800;
+}
+
 .track {
     display: flex;
     padding: .6rem;

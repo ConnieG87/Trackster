@@ -1,6 +1,5 @@
 var Trackster = {};
 var tracklist = $('#track-list');
-//var artist = [];
 var curTrackList = [];
 const API_KEY = '6a1715aeff4d212449508fa7dbaf63bc';
 
@@ -38,8 +37,16 @@ $(document).ready(function () {
 		Trackster.searchbyRandomKeyword(Trackster.generateRandomWord());
 	});
 
-	$('#artist-header').click(function () {
+	$('#artist-sort').click(function () {
 		Trackster.sortColumn('artist');
+	});
+
+	$('#song-sort').click(function () {
+		Trackster.sortColumn('name');
+	});
+
+	$('#listeners-sort').click(function () {
+		Trackster.sortColumn('listeners');
 	});
 });
 
@@ -54,28 +61,22 @@ Trackster.searchbyRandomKeyword = function (keyword) {
   Append each "row" to the container in the body to display all tracks. 
 */
 Trackster.renderTracks = function (tracks) {
-	console.log(tracks);
 	tracklist.empty();
 	if (tracks.length > 0) {
 		for (var i = 0; i < tracks.length; i++) {
+			curTrackList.push({ url: tracks[i].url, name: tracks[i].name, artist: tracks[i].artist, image: tracks[i].image, listeners: tracks[i].listeners });
 			var track = $('<div class="row track">\n' +
 				'\t\t\t\t\t\t<div class="col-xs-1 col-xs-offset-1 play-button">\n' +
-				'\t\t\t\t\t\t\t<a href="' + tracks[i].url + '" target="_blank"><i class="fa fa-play-circle-o fa-2x"></i></a>\n' +
+				'\t\t\t\t\t\t\t<a href="' + curTrackList[i].url + '" target="_blank"><i class="fa fa-play-circle-o fa-2x"></i></a>\n' +
 				'\t\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t\t<div class="col-xs-4">' + tracks[i].name + '</div>\n' +
-				'\t\t\t\t\t\t<div class="col-xs-2">' + tracks[i].artist + '</div>\n' +
+				'\t\t\t\t\t\t<div class="col-xs-4">' + curTrackList[i].name + '</div>\n' +
+				'\t\t\t\t\t\t<div class="col-xs-2">' + curTrackList[i].artist + '</div>\n' +
 				'\t\t\t\t\t\t<div class="col-xs-2">\n' +
-				'\t\t\t\t\t\t\t<img src="' + tracks[i].image[1]["#text"] + '"/></div>\n' +
-				'\t\t\t\t\t\t<div class="col-xs-1 listeners">' + numeral(tracks[i].listeners).format('0,0') + '</div>\n' +
+				'\t\t\t\t\t\t\t<img src="' + curTrackList[i].image[1]["#text"] + '"/></div>\n' +
+				'\t\t\t\t\t\t<div class="col-xs-1 listeners">' + numeral(curTrackList[i].listeners).format('0,0') + '</div>\n' +
 				'\t\t\t\t\t</div>');
-			track.data( { tdata: [tracks[i].url, tracks[i].name, tracks[i].artist, tracks[i].image, tracks[i].listeners] } );
-			//artist[i] = track.data('tdata')[1];
-
-			curTrackList.push(track);
-			//console.log("Trackdata: "+ curTrackList[i].data('tdata'));
 			tracklist.append(track);
 		}
-		//console.log(curTrackList);
 	}
 	else {
 		var nosongs = '<div class="row">\n' +
@@ -108,49 +109,23 @@ Trackster.generateRandomWord = function () {
 };
 
 Trackster.sortColumn = function (column) {
-	//console.log(curTrackList);
-	var colIndex;
+
 	var newTrackList = [];
-
-	if (column === 'name') {
-		colIndex = 1;
-	}
-	else if (column === 'artist') {
-		colIndex = 2;
-	}
-	else if (column === 'listeners') {
-		colIndex = 3;
-	}
-	else {
-		console.log("colum not found");
-	}
-
 	var colData = [];
+
 	for (var i=0; i<curTrackList.length; i++) {
-		colData.push(curTrackList[i].data('tdata')[colIndex]);
+		colData.push(curTrackList[i][column]);
 	}
 
-	console.log("sort");
 	colData.sort();
 
 	for (var i=0; i<colData.length; i++ ) {
 		for (var j=0; j<curTrackList.length; j++) {
-			if (colData[i] === curTrackList[j].data('tdata')[colIndex]) {
-				var url = curTrackList[j].data('tdata')[0];
-				var name = curTrackList[j].data('tdata')[1];
-				var artist = curTrackList[j].data('tdata')[2];
-				var image = curTrackList[j].data('tdata')[3];
-				var listeners = curTrackList[j].data('tdata')[4];
-				newTrackList.push({name, image, artist, url, listeners});
-				//newTrackList.push({ curTrackList[j].data('tdata')[0], curTrackList[j].data('tdata')[1], curTrackList[j].data('tdata')[2], curTrackList[j].data('tdata')[3], curTrackList[j].data('tdata')[4], curTrackList[j].data('tdata')[5] });
+			if (colData[i] === curTrackList[j][column]) {
+				newTrackList.push(curTrackList[j]);
 				curTrackList.splice(j, 1);
 			}
 		}
 	}
-
-	console.log(newTrackList);
-
-
-
 	Trackster.renderTracks(newTrackList);
 };
