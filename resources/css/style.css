@@ -62,7 +62,15 @@ h1 {
 }
 
 .sortable {
-    font-weight: 800;
+    cursor: pointer;
+}
+
+.sort-arrow {
+    padding-left: 10px;
+}
+
+.arrow-disabled {
+    color: rgba(255,255,255,0.5);
 }
 
 .track {
